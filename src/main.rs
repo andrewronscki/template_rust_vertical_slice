@@ -14,11 +14,11 @@ fn main() {
     };
 
     match tasks::features::create_task::command::create_task_command(&mut conn, command) {
-				Ok(task) => {
-					println!("Task criada: {:?}", task)
-				},
-				Err(_) => {
-					println!("Erro ao criar task")
-				},
-		};
+        Ok(task) => {
+            println!("Task criada: {:?}", task)
+        }
+        Err(_) => {
+            println!("Erro ao criar task")
+        }
+    };
 }

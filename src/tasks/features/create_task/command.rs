@@ -29,7 +29,7 @@ pub fn create_task_command(conn: &mut PgConnection, command: Command) -> Result<
     match created {
         Ok(created_task) => {
             println!("Created task: {:?}", created_task);
-						task::Task::set_id(&mut task, created_task.id);
+            task::Task::set_id(&mut task, created_task.id);
             Ok(task)
         }
         Err(e) => {
