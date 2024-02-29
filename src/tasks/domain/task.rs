@@ -15,6 +15,15 @@ impl Status {
             Self::Done => "DONE",
         }
     }
+
+		pub fn from_str(s: &str) -> Option<Self> {
+			match s {
+					"OPEN" => Some(Self::Open),
+					"DOING" => Some(Self::Doing),
+					"DONE" => Some(Self::Done),
+					_ => None,
+			}
+	}
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
