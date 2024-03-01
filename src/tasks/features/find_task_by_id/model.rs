@@ -1,4 +1,4 @@
-use crate::schema::tasks;
+use crate::shared::schema::tasks;
 
 #[derive(Debug, Queryable, AsChangeset)]
 pub struct Task {

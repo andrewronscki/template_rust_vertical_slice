@@ -5,7 +5,7 @@ use axum::{
     Extension, Router,
 };
 
-use crate::app_state::AppState;
+use crate::shared::app_state::AppState;
 
 use self::features::{create_task::route::create_task, find_task_by_id::route::find_task_by_id};
 

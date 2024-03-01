@@ -2,7 +2,7 @@ use std::sync::Mutex;
 
 use diesel::PgConnection;
 
-use crate::db;
+use super::db;
 
 pub struct AppState {
     pub conn: Mutex<PgConnection>,

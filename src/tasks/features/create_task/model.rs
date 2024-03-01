@@ -1,4 +1,4 @@
-use crate::schema::tasks;
+use crate::shared::schema::tasks;
 
 #[derive(Insertable)]
 #[table_name = "tasks"]

@@ -14,3 +14,4 @@ diesel = { version = "2.1", features = ["postgres"] }
 dotenv = "0.15"
 thiserror = "1.0"
 tower-http = "0.5"
+waiter_di = "1.6"

@@ -4,12 +4,10 @@ extern crate diesel;
 use std::sync::Arc;
 
 use crate::tasks::tasks_routes;
-use app_state::AppState;
 use axum::Router;
+use shared::app_state::AppState;
 
-mod app_state;
-mod db;
-mod schema;
+mod shared;
 mod tasks;
 
 #[tokio::main]
