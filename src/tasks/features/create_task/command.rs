@@ -2,7 +2,6 @@ use waiter_di::*;
 
 use crate::{shared::di_container, tasks::domain::task};
 
-use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use super::repository::TCreateTaskRepository;
@@ -24,12 +23,12 @@ impl CommandHandler {
         Provider::<CommandHandler>::create(&mut container)
     }
 
-    pub fn command(&self, conn: &mut PgConnection, command: Command) -> Result<task::Task, String> {
+    pub fn command(&self, command: Command) -> Result<task::Task, String> {
         println!("Creating task: {:?}", command);
 
         let mut task = task::Task::new(command.title, command.description);
 
-        let created = self.repo.create(conn, &task);
+        let created = self.repo.create(&task);
 
         match created {
             Ok(created_task) => {

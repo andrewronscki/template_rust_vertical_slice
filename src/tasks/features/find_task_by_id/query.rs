@@ -3,8 +3,6 @@ use waiter_di::*;
 use crate::shared::di_container;
 use crate::tasks::domain::task;
 
-use diesel::prelude::*;
-
 use super::repository::TFindTaskByIdRepository;
 
 #[module]
@@ -18,10 +16,10 @@ impl QueryHandler {
 			Provider::<QueryHandler>::create(&mut container)
 	}
 
-	pub fn query(&self, conn: &mut PgConnection, id: i32) -> Result<task::Task, String> {
+	pub fn query(&self, id: i32) -> Result<task::Task, String> {
 		println!("Finding task: {:?}", id);
 
-    let found_task = self.repo.fin_by_id(conn, id);
+    let found_task = self.repo.fin_by_id(id);
 
     match found_task {
         Ok(found_task) => {
