@@ -1,6 +1,7 @@
+use axum::http::StatusCode;
 use waiter_di::*;
 
-use crate::{shared::di_container, tasks::domain::task};
+use crate::{shared::{di_container, exception_filter::CustomError}, tasks::domain::task};
 
 use serde::{Deserialize, Serialize};
 
@@ -23,9 +24,7 @@ impl CommandHandler {
         Provider::<CommandHandler>::create(&mut container)
     }
 
-    pub fn command(&self, command: Command) -> Result<task::Task, String> {
-        println!("Creating task: {:?}", command);
-
+    pub fn command(&self, command: Command) -> Result<task::Task, CustomError> {
         let mut task = task::Task::new(command.title, command.description);
 
         let created = self.repo.create(&task);
@@ -35,10 +34,12 @@ impl CommandHandler {
                 task::Task::set_id(&mut task, created_task.id);
                 Ok(task)
             }
-            Err(e) => {
-                println!("Error saving new task: {:?}", e);
-
-                Err("Error saving new task".to_string())
+            Err(_) => {
+                Err(CustomError{
+									message: "Create task error".into(),
+									name: "CreateTaskError".into(),
+									status: StatusCode::BAD_REQUEST,
+								})
             }
         }
     }

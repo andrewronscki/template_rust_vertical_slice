@@ -4,9 +4,9 @@ use diesel::result::Error;
 use waiter_di::*;
 
 use crate::shared::app_state::AppState;
+use crate::shared::schema::tasks::dsl::*;
 use crate::tasks::domain::task;
 use crate::tasks::features::create_task::model::{NewTask, Task};
-use crate::shared::schema::tasks::dsl::*;
 
 pub trait TCreateTaskRepository: Send {
     fn create(&self, task: &task::Task) -> Result<Task, Error>;
@@ -18,7 +18,10 @@ pub struct CreateTaskRepository {}
 #[provides]
 impl TCreateTaskRepository for CreateTaskRepository {
     fn create(&self, task: &task::Task) -> Result<Task, Error> {
-				let mut conn = AppState::get_instance().db_pool.get().expect("Failed to get db connection");
+        let mut conn = AppState::get_instance()
+            .db_pool
+            .get()
+            .expect("Failed to get db connection");
 
         let new_task = NewTask {
             title: &task.title,
@@ -33,12 +36,9 @@ impl TCreateTaskRepository for CreateTaskRepository {
 
         match created {
             Ok(created_task) => {
-                println!("Created task: {:?}", created_task);
                 Ok(created_task)
             }
             Err(e) => {
-                println!("Error saving new task: {:?}", e);
-
                 Err(e)
             }
         }
