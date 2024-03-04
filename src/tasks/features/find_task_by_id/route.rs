@@ -15,7 +15,8 @@ use super::query::QueryHandler;
 	responses(
 		(status = 201, body = [Task]),
 		(status = 400)
-	)
+	),
+	tag = "tasks"
 )]
 pub async fn find_task_by_id(
     Path(id): Path<i32>,

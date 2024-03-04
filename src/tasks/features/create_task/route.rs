@@ -16,6 +16,7 @@ use super::command::{Command, CommandHandler};
 		(status = 201, body = [Task]),
 		(status = 400)
 	),
+	tag = "tasks"
 )]
 pub async fn create_task(
     Json(payload): Json<Command>,

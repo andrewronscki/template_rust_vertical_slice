@@ -15,7 +15,7 @@ use crate::tasks::{
 		schemas(Command, Task, Status)
 	),
 	tags(
-		(name = "Tasks", description = "Funcionalidades de tarefas")
+		(name = "tasks", description = "Funcionalidades de tarefas")
 	)
 )]
 pub struct ApiDoc;
