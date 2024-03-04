@@ -8,6 +8,15 @@ use crate::shared::exception_filter::CustomError;
 
 use super::query::QueryHandler;
 
+#[utoipa::path(
+	get,
+	path = "/api/v1/tasks/{id}",
+	params(("id" = usize, Path, description = "ID da tarefa")),
+	responses(
+		(status = 201, body = [Task]),
+		(status = 400)
+	)
+)]
 pub async fn find_task_by_id(
     Path(id): Path<i32>,
 ) -> Result<impl IntoResponse, (StatusCode, CustomError)> {

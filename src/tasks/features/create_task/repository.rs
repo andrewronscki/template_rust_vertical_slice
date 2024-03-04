@@ -35,12 +35,8 @@ impl TCreateTaskRepository for CreateTaskRepository {
             .get_result::<Task>(&mut conn);
 
         match created {
-            Ok(created_task) => {
-                Ok(created_task)
-            }
-            Err(e) => {
-                Err(e)
-            }
+            Ok(created_task) => Ok(created_task),
+            Err(e) => Err(e),
         }
     }
 }

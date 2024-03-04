@@ -25,12 +25,8 @@ impl TFindTaskByIdRepository for FindTaskByIdRepository {
         let task_found = tasks.find(task_id).get_result::<Task>(&mut conn);
 
         match task_found {
-            Ok(task_found) => {
-                Ok(task_found)
-            }
-            Err(e) => {
-                Err(e)
-            }
+            Ok(task_found) => Ok(task_found),
+            Err(e) => Err(e),
         }
     }
 }

@@ -1,13 +1,17 @@
 use axum::http::StatusCode;
+use utoipa::ToSchema;
 use waiter_di::*;
 
-use crate::{shared::{di_container, exception_filter::CustomError}, tasks::domain::task};
+use crate::{
+    shared::{di_container, exception_filter::CustomError},
+    tasks::domain::task,
+};
 
 use serde::{Deserialize, Serialize};
 
 use super::repository::TCreateTaskRepository;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct Command {
     pub title: String,
     pub description: String,
@@ -34,13 +38,11 @@ impl CommandHandler {
                 task::Task::set_id(&mut task, created_task.id);
                 Ok(task)
             }
-            Err(_) => {
-                Err(CustomError{
-									message: "Create task error".into(),
-									name: "CreateTaskError".into(),
-									status: StatusCode::BAD_REQUEST,
-								})
-            }
+            Err(_) => Err(CustomError {
+                message: "Create task error".into(),
+                name: "CreateTaskError".into(),
+                status: StatusCode::BAD_REQUEST,
+            }),
         }
     }
 }
