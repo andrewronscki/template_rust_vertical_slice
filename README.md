@@ -1,3 +1,13 @@
 # Template Rust Vertical Slice
 
-## Loading...
+## Implementations
+
+- [x] Vertical Slice
+- [x] HTTP Routes
+- [ ] Asynchronous communication
+- [x] Dependency Injection
+- [x] Exception Filter
+- [x] Postgres Integration
+- [x] OpenApi Integration
+- [ ] Logs
+- [x] Tests
