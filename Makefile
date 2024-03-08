@@ -1,6 +1,4 @@
 #!make
-.PHONY: up down rmv swag
-
 infra:
 	docker compose -f ./docker-compose.yml up -d
 	sleep 5
