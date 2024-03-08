@@ -19,7 +19,7 @@
   - [Pré-requisitos](#pré-requisitos)
   - [Rodando o projeto](#-rodando-o-projeto)
 - [Tecnologias](#-tecnologias)
-  - [Template](#server--nestjs)
+  - [Template](#template-rust)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Autor](#-autor)
 - [Licença](#-licença)
