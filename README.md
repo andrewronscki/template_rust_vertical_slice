@@ -105,7 +105,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-## 🛠 Estrutura do Template do Projeto
+## 🛠 Estrutura do Projeto
 
 A estrutura do template do projeto segue este modelo:
 
