@@ -15,7 +15,9 @@ mod tasks;
 
 #[tokio::main]
 async fn main() {
+    env_logger::init();
     AppState::new();
+
     let _ = shared::messaging::establish_connection()
         .await
         .expect("Failed to establish RabbitMQ connection");
