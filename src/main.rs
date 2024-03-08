@@ -5,9 +5,12 @@ use crate::tasks::tasks_routes;
 use axum::routing::Router;
 use docs::documentation::ApiDoc;
 use shared::app_state::AppState;
-use tower_http::catch_panic::CatchPanicLayer;
+use tower_http::{catch_panic::CatchPanicLayer, trace::TraceLayer};
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
+
+use dotenv::dotenv;
+use std::env;
 
 mod docs;
 mod shared;
@@ -15,7 +18,9 @@ mod tasks;
 
 #[tokio::main]
 async fn main() {
+    dotenv().ok();
     env_logger::init();
+
     AppState::new();
 
     match shared::messaging::establish_connection().await {
@@ -31,14 +36,20 @@ async fn main() {
 
     let app = Router::new()
         .nest("/api/v1/tasks", tasks_routes())
+        .layer(TraceLayer::new_for_http())
         .layer(CatchPanicLayer::new())
         .merge(SwaggerUi::new("/docs").url("/api-doc/openapi.json", ApiDoc::openapi()));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let port = env::var("APP_PORT").expect("APP_PORT must be set");
+
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:".to_string() + &port)
+        .await
+        .unwrap();
 
     let server_handle = tokio::spawn(async move {
         axum::serve(listener, app).await.unwrap();
     });
 
+    log::info!("Server started on port: {}", port);
     let _ = tokio::join!(worker_handle, server_handle);
 }
