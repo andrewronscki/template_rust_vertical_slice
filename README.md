@@ -34,7 +34,7 @@
         </p>  
     </div>      
     <div style="display: table-cell; vertical-align: middle;">  
-        <img src="https://rustacean.net/assets/cuddlyferris.svg" width="261" />  
+        <img src="./doc/rust_2.png" width="261" />  
     </div>  
 </div>
 
