@@ -27,15 +27,10 @@
 
 ## 💻 Sobre o projeto
 
-<div style="display: table;">
-    <div style="display: table-cell; vertical-align: middle;">  
-        <p>
-            Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design e arquitetura modular. 
-        </p>  
-    </div>      
-    <div style="display: table-cell; vertical-align: middle;">  
-        <img src="./doc/rust_2.png" width="261" />  
-    </div>  
+Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design e arquitetura modular. 
+
+<div align="center">
+    <image src="./doc/rust_2.png" width="261" />
 </div>
 
 ---
@@ -82,6 +77,11 @@ $ make run
 # Para mais comandos visite o arquivo Makefile
 
 ```
+
+<div align="center">
+    <image src="./doc/rust_3.png" width="261" />
+</div>
+
 
 ---
 
