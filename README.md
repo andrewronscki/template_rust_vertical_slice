@@ -4,7 +4,7 @@
 
 - [x] Vertical Slice
 - [x] HTTP Routes
-- [ ] Asynchronous communication
+- [x] Asynchronous communication
 - [x] Dependency Injection
 - [x] Exception Filter
 - [x] Postgres Integration

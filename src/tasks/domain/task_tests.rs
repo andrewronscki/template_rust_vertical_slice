@@ -36,7 +36,7 @@ fn set_task_id() {
     assert!(task.id.is_none());
 
     task.set_id(10);
-    assert_eq!(task.id, Some(10)); 
+    assert_eq!(task.id, Some(10));
 }
 
 #[test]

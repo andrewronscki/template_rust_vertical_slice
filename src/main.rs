@@ -16,6 +16,9 @@ mod tasks;
 #[tokio::main]
 async fn main() {
     AppState::new();
+    let _ = shared::messaging::establish_connection()
+        .await
+        .expect("Failed to establish RabbitMQ connection");
 
     let app = Router::new()
         .nest("/api/v1/tasks", tasks_routes())
@@ -23,5 +26,8 @@ async fn main() {
         .merge(SwaggerUi::new("/docs").url("/api-doc/openapi.json", ApiDoc::openapi()));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+
+    tasks::init_tasks_workers().await;
+
     axum::serve(listener, app).await.unwrap();
 }

@@ -13,3 +13,7 @@ pub fn tasks_routes() -> Router {
         .route("/", post(create_task))
         .route("/:id", get(find_task_by_id))
 }
+
+pub async fn init_tasks_workers() {
+    features::create_task::init().await;
+}
