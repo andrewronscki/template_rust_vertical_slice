@@ -14,3 +14,6 @@ down:
 
 rmv:
 	docker volume rm $$(docker volume ls -q)
+
+run:
+	RUST_LOG=debug cargo watch -x run 

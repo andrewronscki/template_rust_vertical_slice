@@ -2,7 +2,7 @@
 extern crate diesel;
 
 use crate::tasks::tasks_routes;
-use axum::Router;
+use axum::routing::Router;
 use docs::documentation::ApiDoc;
 use shared::app_state::AppState;
 use tower_http::catch_panic::CatchPanicLayer;
@@ -18,9 +18,16 @@ async fn main() {
     env_logger::init();
     AppState::new();
 
-    let _ = shared::messaging::establish_connection()
-        .await
-        .expect("Failed to establish RabbitMQ connection");
+    match shared::messaging::establish_connection().await {
+        Ok(_) => {
+            log::info!("RabbitMQ Connected!")
+        }
+        Err(_) => {
+            log::error!("Error to RabbitMQ connect!")
+        }
+    }
+
+    let worker_handle = tokio::spawn(tasks::init_tasks_workers());
 
     let app = Router::new()
         .nest("/api/v1/tasks", tasks_routes())
@@ -29,7 +36,9 @@ async fn main() {
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
 
-    tasks::init_tasks_workers().await;
+    let server_handle = tokio::spawn(async move {
+        axum::serve(listener, app).await.unwrap();
+    });
 
-    axum::serve(listener, app).await.unwrap();
+    let _ = tokio::join!(worker_handle, server_handle);
 }

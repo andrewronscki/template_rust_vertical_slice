@@ -10,8 +10,6 @@ pub async fn establish_connection() -> Result<(), Error> {
     let conn = Connection::connect(&addr, ConnectionProperties::default()).await?;
     let channel = conn.create_channel().await?;
 
-    println!("RabbitMQ channel created!");
-
     let shared_channel = Arc::new(channel);
     let _ = app_state::AppState::set_channel(shared_channel).await;
 
