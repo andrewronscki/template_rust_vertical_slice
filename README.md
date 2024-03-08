@@ -59,6 +59,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 #### 🎲 Rodando o projeto
 
+<div align="center">
+    <image src="./doc/rust_3.png" width="261" />
+</div>
+
 ```bash
 
 # Clone este repositório
@@ -77,11 +81,6 @@ $ make run
 # Para mais comandos visite o arquivo Makefile
 
 ```
-
-<div align="center">
-    <image src="./doc/rust_3.png" width="261" />
-</div>
-
 
 ---
 
