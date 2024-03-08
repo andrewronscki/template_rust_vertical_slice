@@ -27,9 +27,16 @@
 
 ## 💻 Sobre o projeto
 
-Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust  
-utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design  
-e arquitetura modular.
+<div style="display: table;">
+    <div style="display: table-cell; vertical-align: middle;">  
+        <p>
+            Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design e arquitetura modular. 
+        </p>  
+    </div>      
+    <div style="display: table-cell; vertical-align: middle;">  
+        <img src="https://rustacean.net/assets/cuddlyferris.svg" width="261" />  
+    </div>  
+</div>
 
 ---
 
