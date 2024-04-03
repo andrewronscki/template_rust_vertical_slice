@@ -27,7 +27,7 @@
 
 ## 💻 Sobre o projeto
 
-Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design e arquitetura modular. 
+Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto com Rust utilizando conceitos da arquitetura Vertical Slice junto com Domain-Driven Design e arquitetura modular.
 
 <div align="center">
     <image src="./doc/rust_2.png" width="261" />
@@ -46,6 +46,8 @@ Esse projeto tem como intuíto exemplificar como pode ser criado o seu projeto c
 - [x] OpenApi Integration
 - [x] Logs
 - [x] Tests
+- [x] Authentication
+- [x] Password encryption
 
 ---
 
