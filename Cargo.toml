@@ -22,3 +22,8 @@ lapin = "2.3"
 futures-util = "0.3"
 log = "0.4"
 env_logger = "0.11"
+argon2 = "0.5" 
+rand = "0.8" 
+jsonwebtoken = "9"
+uuid = { version = "1", features = ["v4"] }
+chrono = "0.4"

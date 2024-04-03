@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate diesel;
 
-use crate::tasks::tasks_routes;
+use crate::{accounts::auth_routes, tasks::tasks_routes};
 use axum::routing::Router;
 use docs::documentation::ApiDoc;
 use shared::app_state::AppState;
@@ -12,6 +12,7 @@ use utoipa_swagger_ui::SwaggerUi;
 use dotenv::dotenv;
 use std::env;
 
+mod accounts;
 mod docs;
 mod shared;
 mod tasks;
@@ -36,6 +37,7 @@ async fn main() {
 
     let app = Router::new()
         .nest("/api/v1/tasks", tasks_routes())
+        .nest("/api/v1/auth", auth_routes())
         .layer(TraceLayer::new_for_http())
         .layer(CatchPanicLayer::new())
         .merge(SwaggerUi::new("/docs").url("/api-doc/openapi.json", ApiDoc::openapi()));
@@ -50,6 +52,7 @@ async fn main() {
         axum::serve(listener, app).await.unwrap();
     });
 
-    log::info!("Server started on port: {}", port);
     let _ = tokio::join!(worker_handle, server_handle);
+
+    log::info!("Server started on port: {}", port);
 }

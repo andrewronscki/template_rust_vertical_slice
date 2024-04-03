@@ -1,6 +1,21 @@
 version: "3.9"
 
 services:
+  rabbitmq:
+    container_name: rabbitmq-rust-project
+    image: rabbitmq:3.12.6-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=rust
+      - RABBITMQ_DEFAULT_PASS=p4ssw0rd
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq/
+    networks:
+      - rust-project
+
   postgres:
     container_name: postgres-rust-project
     image: postgres:latest
@@ -19,6 +34,9 @@ services:
 volumes:
   postgresdata:
     name: rustprojectpostgresdata
+    external: false
+  rabbitmqdata:
+    name: rustprojectrabbitmqdata
     external: false
 
 networks:
