@@ -13,7 +13,7 @@ use super::repository::TSignUpRepository;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct Command {
+pub struct SignUpCommand {
     pub name: String,
     pub email: String,
     pub password: String,
@@ -31,7 +31,7 @@ impl CommandHandler {
         Provider::<CommandHandler>::create(&mut container)
     }
 
-    pub fn command(&self, command: Command) -> Result<account::Tokens, CustomError> {
+    pub fn command(&self, command: SignUpCommand) -> Result<account::Tokens, CustomError> {
         let mut account = account::Account::new(command.name, command.email);
 
         account::Account::set_password(&mut account, command.password);

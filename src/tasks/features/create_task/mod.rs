@@ -8,7 +8,7 @@ use lapin::{options::*, types::FieldTable};
 
 use crate::{
     shared::app_state::AppState,
-    tasks::features::create_task::command::{Command, CommandHandler},
+    tasks::features::create_task::command::{CommandHandler, CreateTaskCommand},
 };
 
 pub async fn init() {
@@ -42,7 +42,7 @@ pub async fn init() {
 
         while let Some(delivery) = consumer.next().await {
             if let Ok(delivery) = delivery {
-                match serde_json::from_slice::<Command>(&delivery.data) {
+                match serde_json::from_slice::<CreateTaskCommand>(&delivery.data) {
                     Ok(command) => {
                         let handler = CommandHandler::new();
                         match handler.command(command) {

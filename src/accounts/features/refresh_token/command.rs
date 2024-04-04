@@ -9,18 +9,18 @@ use crate::{
 
 use serde::{Deserialize, Serialize};
 
-use super::repository::TSignInRepository;
+use super::repository::TRefreshTokenRepository;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct SignInCommand {
-    pub email: String,
-    pub password: String,
+pub struct RefreshCommand {
+    pub access_token: String,
+    pub refresh_token: String,
 }
 
 #[module]
 pub struct CommandHandler {
-    repo: Box<dyn TSignInRepository>,
+    repo: Box<dyn TRefreshTokenRepository>,
 }
 
 impl CommandHandler {
@@ -29,30 +29,25 @@ impl CommandHandler {
         Provider::<CommandHandler>::create(&mut container)
     }
 
-    pub fn command(&self, command: SignInCommand) -> Result<account::Tokens, CustomError> {
-        let account_found = self.repo.find_by_email(&command.email);
+    pub fn command(&self, command: RefreshCommand) -> Result<account::Tokens, CustomError> {
+        let account_found = self
+            .repo
+            .find_by_tokens(&command.access_token, &command.refresh_token);
 
         let mut account = match account_found {
             Ok(account) => account,
 
-            Err(_) => {
+            Err(err) => {
+                println!("CAIU AQUI :{}", err);
                 return Err(CustomError {
                     message: "User not found error".into(),
                     name: "UserNotFoundError".into(),
                     status: StatusCode::NOT_FOUND,
-                })
+                });
             }
         };
 
-        let valid = account::Account::verify_password(&mut account, &command.password);
-
-        if !valid {
-            return Err(CustomError {
-                message: "Sign in error".into(),
-                name: "SignInError".into(),
-                status: StatusCode::CONFLICT,
-            });
-        }
+        println!("{:?}", account);
 
         account::Account::set_tokens(&mut account);
 

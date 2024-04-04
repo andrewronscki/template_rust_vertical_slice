@@ -6,12 +6,12 @@ use axum::{
 
 use crate::shared::exception_filter::CustomError;
 
-use super::command::{Command, CommandHandler};
+use super::command::{CommandHandler, SignUpCommand};
 
 #[utoipa::path(
 	post,
 	path = "/api/v1/auth/sign-up",
-	request_body = Command,
+	request_body = SignUpCommand,
 	responses(
 		(status = 201, body = [Tokens]),
 		(status = 400)
@@ -19,7 +19,7 @@ use super::command::{Command, CommandHandler};
 	tag = "auth"
 )]
 pub async fn sign_up(
-    Json(payload): Json<Command>,
+    Json(payload): Json<SignUpCommand>,
 ) -> Result<impl IntoResponse, (StatusCode, CustomError)> {
     let handler = CommandHandler::new();
 

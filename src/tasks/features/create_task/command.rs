@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 use super::repository::TCreateTaskRepository;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
-pub struct Command {
+pub struct CreateTaskCommand {
     pub title: String,
     pub description: String,
 }
@@ -28,7 +28,7 @@ impl CommandHandler {
         Provider::<CommandHandler>::create(&mut container)
     }
 
-    pub fn command(&self, command: Command) -> Result<task::Task, CustomError> {
+    pub fn command(&self, command: CreateTaskCommand) -> Result<task::Task, CustomError> {
         let mut task = task::Task::new(command.title, command.description);
 
         let created = self.repo.create(&task);

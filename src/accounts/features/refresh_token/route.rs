@@ -6,20 +6,20 @@ use axum::{
 
 use crate::shared::exception_filter::CustomError;
 
-use super::command::{CommandHandler, CreateTaskCommand};
+use super::command::{CommandHandler, RefreshCommand};
 
 #[utoipa::path(
 	post,
-	path = "/api/v1/tasks",
-	request_body = CreateTaskCommand,
+	path = "/api/v1/auth/refresh",
+	request_body = RefreshCommand,
 	responses(
-		(status = 201, body = [Task]),
+		(status = 201, body = [Tokens]),
 		(status = 400)
 	),
-	tag = "tasks"
+	tag = "auth"
 )]
-pub async fn create_task(
-    Json(payload): Json<CreateTaskCommand>,
+pub async fn refresh(
+    Json(payload): Json<RefreshCommand>,
 ) -> Result<impl IntoResponse, (StatusCode, CustomError)> {
     let handler = CommandHandler::new();
 

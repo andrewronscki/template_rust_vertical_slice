@@ -31,7 +31,7 @@ pub async fn verify_jwt(mut req: Request<Body>, next: Next) -> Result<Response<B
     ) {
         Ok(decoded) => {
             let claims = decoded.claims;
-            req.extensions_mut().insert(claims.clone());
+            req.extensions_mut().insert(claims);
             Ok(next.run(req).await)
         }
         Err(_) => Err(StatusCode::UNAUTHORIZED),
